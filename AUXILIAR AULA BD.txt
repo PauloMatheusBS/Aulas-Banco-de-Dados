@@ -1,0 +1,438 @@
+ls = permissão de leitura para arquivos. Caso seja um diretório, permite listar seu conteúdo. 
+cd = permite executar um arquivo. Caso seja um diretório, permite que seja acessado através do comando cd. cd (change directory) Entra em um diretório. 
+pwd =  Mostra o nome e o caminho do diretório atual (diretório em que o usuário está). 
+ls /etc –l = O comando abaixo lista os diretórios e arquivos do /etc bem como as permissões. 
+du -ha = para ver e listar o tamanho de todos os arquivos dentro do diretório ou subdiretório(s);
+cd .. = Para subir um diretório acima
+cd - = Para voltar ao diretório imediatamente anteriormente acessado
+mkdir = (make directory) Cria novos diretórios (vazios). Ex.: mkdir /tmp/Pasta1 
+rmdir (remove directory) = Remove um ou mais diretórios vazios. 
+vim /home/ederson/teste
+Insert – ativa inserção
+esc : w (write - salva o arquivo)
+esc :q (quit – fecha o arquivo)
+rm /tmp/teste = Remove arquivos e diretórios. 
+mv [opções] [origem] [destino] = Move e renomeia arquivos e diretórios.
+sudo shutdown -h now = desliga
+
+esc shift: q!
+--------------------------------------------------------------------
+sudo apt install mysql-server
+
+
+sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf - alterar arquivo SQL
+sudo service mysql restart - reiniciar serviço
+
+
+
+
+$ sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+
+
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+CREATE USER 'eaoquadrado'@'localhost' IDENTIFIED BY 'capdev123';
+GRANT ALL PRIVILEGES ON * . * TO ‘ederson'@'localhost';
+
+sudo mysql - acessar SQL
+crtl + c = volta
+mysql -u [username] -p = logar com usuario
+mysql> SELECT user FROM mysql.user; = mostrar usuarios
+IP LINUX = ip add = comando
+UTF-8 = padrao
+CHARSET = 
+Colation = 
+
+use nomedobanco; = seleciona banco
+create table nomedatabela();
+describe nomedatabela; = mostra campos da table
+rename table nomeatual to nomenovorename 
+alter table nometabela add column nomecoluna tipo; = adicionar coluna
+alter table nometabela add primary key (coluna);
+
+eaoquadrado
+capdev123
+10.28.2.59
+
+ALTER USER 'usuario'@'localhost' IDENTIFIED BY 'nova_senha';
+--------------------------------------------------------------------
+Requisitos:
+Usuários do serviço serão cadastrados, devendo ser registrados seu e-mail principal (login), senha de acesso, nome, telefone, CPF, endereço de cobrança e número de cartão de crédito para pagamento mensal. 
+A cada mês, a cobrança da mensalidade será emitida, debitada do cartão de crédito do usuário registrado no cadastro, e confirmada ao usuário por e-mail. Caso não seja possível realizar a cobrança (por exemplo, por bloqueio do cartão) o usuário será avisado por e-mail e a mensalidade ficará pendente.
+Com duas mensalidades pendentes, o usuário perderá o    acesso ao serviço.
+Ao acessar o serviço, o usuário poderá consultar o catálogo de vídeos. Vídeos podem ser de três categorias: filmes, séries e documentários. 
+Sobre filmes, armazena-se o título, ano de produção, e duração em minutos. 
+Sobre cada episódio de séries, são registrados dados sobre título, ano de produção, duração em minutos, temporada e número do episódio. Para cada episódio, é armazenada também a identificação do próximo episódio da mesma série, caso exista. 
+Sobre documentários, armazena-se o título, ano de produção, duração em minutos e nome da produtora. 
+Cada usuário poderá avaliar o vídeo que assistiu, dando a ele uma nota entre 0 e 10. Apenas uma nota poderá ser dada por vídeo.
+Uma lista de atores será também mantida, e associada ao catálogo de vídeos, de modo que o usuário possa procurar por vídeos em que tenha atuado algum ator ou atriz de sua preferência. Sobre cada ator, será armazenado seu nome, data e local de nascimento.
+-----------------------------funções------------------------------
+Criação e Gerenciamento de Bancos de Dados
+CREATE DATABASE: Cria um novo banco de dados. = CREATE DATABASE minha_biblioteca;
+DROP DATABASE: Remove um banco de dados existente. = DROP DATABASE minha_biblioteca;
+USE: Seleciona o banco de dados a ser usado. = USE minha_biblioteca;
+*********************************************************************************************************************************************
+Criação e Gerenciamento de Tabelas
+CREATE TABLE: Cria uma nova tabela. = CREATE TABLE livros (id INT AUTO_INCREMENT PRIMARY KEY, titulo VARCHAR(100) NOT NULL, autor VARCHAR(100), ano_publicajcao YEAR);
+DROP TABLE: Remove uma tabela existente. = DROP TABLE livros;
+ALTER TABLE: Modifica a estrutura de uma tabela existente. = ALTER TABLE livros ADD coluna_genero VARCHAR(50);FROM 
+TRUNCATE TABLE: Remove todos os registros de uma tabela, mas mantém a estrutura. = TRUNCATE TABLE livros;
+ALTER TABLE nome_tabela MODIFY atributo;
+*********************************************************************************************************************************************
+Manipulação de Dados
+INSERT INTO: Adiciona novos registros a uma tabela. = INSERT INTO livros (titulo, autor, ano_publicacao) VALUES ('O Senhor dos Anéis', 'J.R.R. Tolkien', 1954);
+UPDATE: Modifica registros existentes em uma tabela. = UPDATE livros SET ano_publicacao = 1955 WHERE titulo = 'O Senhor dos Anéis';
+UPDATE empregados set nome="Joao" WHERE empregado = 2;
+UPDATE cadastro set nome="João da Silva" WHERE cidade like "A%";
+UPDATE cadastro set nome="João da Silva" WHERE cidade like "A%" or cidade like "B%";
+DELETE: Remove registros de uma tabela. = DELETE FROM livros WHERE titulo = 'O Senhor dos Anéis';
+SELECT: Recupera dados de uma ou mais tabelas. = SELECT * FROM livros;
+*********************************************************************************************************************************************
+Consultas e Filtragem de Dados
+WHERE: Filtra registros com base em condições especificadas. = SELECT * FROM livros WHERE autor = 'J.R.R. Tolkien';
+JOIN: Combina registros de duas ou mais tabelas com base em uma condição comum. = SELECT autores.nome, livros.titulo FROM autores JOIN livros ON autores.id = livros.autor_id;
+GROUP BY: Agrupa registros com valores iguais em colunas especificadas. = SELECT autor, COUNT(*) AS quantidade FROM livros GROUP BY autor;
+HAVING: Filtra grupos de registros após a agregação. = SELECT autor, COUNT(*) AS quantidade FROM livros GROUP BY autor HAVING quantidade > 2;
+ORDER BY: Ordena o resultado das consultas. = SELECT * FROM livros ORDER BY ano_publicacao DESC;
+*********************************************************************************************************************************************
+Funções de Agregação
+COUNT(): Conta o número de registros. = SELECT COUNT(*) AS total_livros FROM livros;
+SUM(): Calcula a soma de valores em uma coluna. = SELECT SUM(preco) AS total_gasto FROM livros;
+AVG(): Calcula a média dos valores em uma coluna. = SELECT AVG(ano_publicacao) AS media_ano FROM livros;
+MIN() e MAX(): Determinam o menor e maior valor em uma coluna, respectivamente. = SELECT MIN(ano_publicacao) AS ano_mais_antigo, MAX(ano_publicacao) AS ano_mais_recem FROM livros;
+*********************************************************************************************************************************************
+Funções de String e Data/Hora
+CONCAT(): Concatena duas ou mais strings. = SELECT CONCAT(titulo, ' - ', autor) AS descricao FROM livros;
+SUBSTRING(): Extrai uma parte de uma string. = SELECT SUBSTRING(titulo, 1, 10) AS titulo_resumido FROM livros;
+NOW(): Retorna a data e hora atuais. = SELECT NOW() AS data_atual;
+DATE_FORMAT(): Formata a data e hora em um formato específico. = SELECT DATE_FORMAT(NOW(), '%d/%m/%Y') AS data_formatada;
+*********************************************************************************************************************************************
+Índices e Chaves
+CREATE INDEX: Cria um índice em uma coluna para melhorar a performance das consultas. = CREATE INDEX idx_autor ON livros(autor);
+DROP INDEX: Remove um índice existente. = DROP INDEX idx_autor ON livros;
+PRIMARY KEY: Define uma coluna ou um conjunto de colunas como identificador único de registros. = ALTER TABLE livros ADD PRIMARY KEY (id);
+FOREIGN KEY: Define uma relação entre colunas de tabelas diferentes. = ALTER TABLE livros ADD CONSTRAINT fk_autor FOREIGN KEY (autor_id) REFERENCES autores(id);
+*********************************************************************************************************************************************
+Controle de Transações
+START TRANSACTION: Inicia uma nova transação. = START TRANSACTION;
+COMMIT: Confirma todas as alterações realizadas na transação. = COMMIT;
+ROLLBACK: Desfaz as alterações realizadas na transação. = ROLLBACK;
+*********************************************************************************************************************************************
+Segurança e Controle de Acesso
+GRANT: Concede permissões a usuários e roles. = GRANT SELECT, INSERT ON minha_biblioteca.* TO 'usuario'@'localhost';
+REVOKE: Remove permissões concedidas anteriormente. = REVOKE INSERT ON minha_biblioteca.* FROM 'usuario'@'localhost';
+CREATE USER: Cria um novo usuário. = CREATE USER 'novo_usuario'@'localhost' IDENTIFIED BY 'senha';
+DROP USER: Remove um usuário existente. = DROP USER 'novo_usuario'@'localhost';
+*********************************************************************************************************************************************
+Backup e Restauração
+mysqldump: Ferramenta de linha de comando para criar backups de bancos de dados. = mysqldump -u usuario -p minha_biblioteca > backup.sql
+mysqlimport: Importa dados de arquivos externos para uma tabela MySQL. = mysqlimport --local -u usuario -p minha_biblioteca tabela.txt
+*********************************************************************************************************************************************
+Procedimentos Armazenados e Triggers
+CREATE PROCEDURE: Cria um procedimento armazenado que pode ser chamado para executar uma série de comandos SQL. = DELIMITER // CREATE PROCEDURE listar_livros() BEGIN SELECT * FROM livros; END// DELIMITER ;
+CREATE TRIGGER: Cria um gatilho que executa uma ação automaticamente em resposta a eventos específicos em uma tabela. = DELIMITER // CREATE TRIGGER antes_inserir_livro BEFORE INSERT ON livros FOR EACH ROW BEGIN SET NEW.data_insercao = NOW(); END// DELIMITER ;
+SET SQL_SAFE_UPDATES = 0;
+
+*********************************************************************************************************************************************
+
+
+
+
+
+-- Tabela para armazenar informações dos usuários
+CREATE TABLE usuarios (
+    email VARCHAR(255) NOT NULL PRIMARY KEY,
+    senha VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NOT NULL,
+    telefone VARCHAR(20),
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    endereco_cobranca TEXT NOT NULL,
+    numero_cartao_credito VARCHAR(20) NOT NULL
+);
+
+-- Tabela para armazenar as mensalidades e o status da cobrança
+CREATE TABLE mensalidades (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email_usuario VARCHAR(255) NOT NULL,
+    data_cobranca DATE NOT NULL,
+    status ENUM('Pendente', 'Pago') DEFAULT 'Pendente',
+    FOREIGN KEY (email_usuario) REFERENCES usuarios(email_usuario)
+);
+
+-- Tabela para armazenar as categorias de vídeos
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- Tabela para armazenar vídeos, relacionados às categorias
+CREATE TABLE videos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    ano_producao YEAR NOT NULL,
+    duracao INT NOT NULL, -- duração em minutos
+    categoria_id INT NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+-- Tabela para armazenar episódios de séries
+CREATE TABLE episodios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    ano_producao YEAR NOT NULL,
+    duracao INT NOT NULL, -- duração em minutos
+    temporada INT NOT NULL,
+    numero_ep INT NOT NULL,
+    proximo_ep_id INT,
+    serie_id INT NOT NULL,
+    FOREIGN KEY (proximo_ep_id) REFERENCES episodios(id),
+    FOREIGN KEY (serie_id) REFERENCES videos(id),
+    UNIQUE (serie_id, temporada, numero_ep)
+);
+
+-- Tabela para armazenar documentários
+CREATE TABLE documentarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    ano_producao YEAR NOT NULL,
+    duracao INT NOT NULL, -- duração em minutos
+    produtora VARCHAR(255) NOT NULL
+);
+
+-- Tabela para armazenar avaliações de vídeos pelos usuários
+CREATE TABLE avaliacoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email_usuario VARCHAR(255) NOT NULL,
+    video_id INT NOT NULL,
+    nota INT CHECK (nota BETWEEN 0 AND 10),
+    FOREIGN KEY (email_usuario) REFERENCES usuarios(email),
+    FOREIGN KEY (video_id) REFERENCES videos(id),
+    UNIQUE (email_usuario, video_id)
+);
+
+-- Tabela para armazenar atores
+CREATE TABLE atores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    data_nascimento DATE NOT NULL,
+    local_nascimento VARCHAR(255) NOT NULL
+);
+
+-- Tabela para associar atores a vídeos
+CREATE TABLE atores_videos (
+    ator_id INT NOT NULL,
+    video_id INT NOT NULL,
+    FOREIGN KEY (ator_id) REFERENCES atores(id),
+    FOREIGN KEY (video_id) REFERENCES videos(id),
+    PRIMARY KEY (ator_id, video_id)
+);
+
+-- Inserir categorias iniciais
+INSERT INTO categorias (nome) VALUES ('Filme');
+INSERT INTO categorias (nome) VALUES ('Série');
+INSERT INTO categorias (nome) VALUES ('Documentário');
+-----------------------´21/08/2024-------------------------------------------------
+create database ecommerce; -- aqui estava errado o datbase
+use ecommerce; -- aqui estava errado o "user"
+
+create table  produtos ( -- aqui faltou abrir o parenteses
+    id_prod int(5) auto_increment not null, -- aqui deveria ser em ingles o increment
+    nome_prod varchar(100) not null,
+    descricao text,  -- aqui faltou a virgula
+    modelo varchar(50),
+    id_categoria int(5), -- aqui tambem faltou virgula
+    id_fabricante int(5) -- aqui sobrou virgula kk
+    ); 
+
+   		
+create table clientes ( -- aqui era em EN
+    id_cli char(5) auto_increment not null, -- erro no atributo, deveria ser junto ou ter aquele acento que esqueci o nome
+    nome varchar(100) not null,
+    cpf int(11),
+    telefone varchar(50),
+    sexo enum('F','M'), -- aqui faltou a virgula
+    cadastro datetime, -- aqui era datetime
+    constraint primary key (id_cli)); -- foi o usuario digitando errado o primary
+
+create table pedidos (
+    num_pedido int(5) auto_increment not null,
+	data datetime,
+	status varchar(50),
+	id_cli int,
+    constraint primary key (num_pedido), -- aqui era erro no espaço kkk
+    constraint foreign key (id_cli) references clientes(id_cli)
+    );
+
+   
+create table pedido_item ( -- aqui era table 
+	idtem_pedido int(5) auto_increment not null,
+	num_pedido int(5) not null,
+	qtde int(5) not null,
+	valor_unit decimal(10,2),
+	total decimal(10,2),
+	id_prod int(5),
+	constraint primary key (idtem_pedido),
+	constraint foreign key (num_pedido) references pedidos(num_pedido), -- aqui é erro na escrita, o correto é foreign
+	constraint foreign key (id_prod) references produtos(id_prod)
+	);
+
+create table estoque_produtos(
+	id_estoque int(5),
+	quantidade int(5) not null,
+	quant_min int(5),
+	id_prod int(5), -- aqui faltou fechar o parenteses
+	constraint primary key (id_estoque),
+	constraint foreign key (id_prod) references produtos(id_prod)
+	);
+        
+	insert into cliente values (null,'João','02102202324','6799999999','M',now());insert into clientes values (null,'Tadeu','02102202366','6799999999','M',now()); -- aqui tava errado o insert
+    insert into clientes values (null,'Francisco','02102202399','6799999999','M',now());
+    insert into clientes values (null,'Maria','02102202377','6799999999','F',now());
+    insert into clientes values (null,'Antonia','02102202388','6799999999','F',now());
+   
+	insert into produtos values (null,'Notebook Dell','Core i5,8GB,SDD 240GB','Inspirion 1500',null,null); -- aqui era erro no espaço tab
+    insert into produtos values (null,'Notebook Acer','Core i5,8GB,SDD 240GB','Aspire T',null,null);
+    insert into produtos values (null,'Notebook Asus','Core i5,8GB,SDD 240GB','A95Z',null,null);
+    insert into produtos values (null,'Notebook Apple','Core i7, 16GB, SDD 512GB','BookPRo',null,null);
+    insert into produtos values (null,'Notebook Positivo','Celerom,4GB,HD 1TB','POS8080',null,null);
+   
+    insert into produtos values (null,'Placa-Mãe ASUS','Onboard','P',null,null);
+    insert into produtos values (null,'Processador AMD','4.2Ghz','Ryzen5',null,null); -- aqui é erro nas apas do processador e tambem faltou virgula no null null
+
+
+    insert into produtos values (null,'Placa de Vídeo RADEON','8GB','RX5500',null,null);
+    insert into produtos values (null,'Fonte Corsair','Selo 80plus',CX1200W,null,null); -- aqui é erro na virgula do null null
+
+   
+	select * from produtos; -- aqui tava form mas deveria ser from
+    describe estoque_produtos; -- aqui é so escrever em EN
+
+
+	insert into estoque_produtos values (null,80,10,1); -- aqui é erro no espaço
+    insert into estoque_produto values (null,44,5,9); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,55,5,8); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,36,5,7); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,49,5,6); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,100,5,1); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,100,5,2); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,100,5,3); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,100,5,4); -- deveria ser into igual o primeiro exemplo e tambem o values
+    insert into estoque_produto values (null,100,5,5); -- deveria ser into igual o primeiro exemplo e tambem o values
+ 
+SELECT MATO GROSSO DO SUL FROM SENSO
+SELECT * FROM CustomersWHERE Country = 'Brazil';
+
+
+-- 1. Selecionar somente o estado de Mato Grosso do Sul
+SELECT * 
+FROM senso
+WHERE cod_uf = '50';  -- Mato Grosso do Sul é identificado pelo código '50'
+
+-- 2. Selecionar somente cidades com menos de 1.000 habitantes
+SELECT *
+FROM senso
+WHERE populacao < 1000;
+
+-- 3. Selecionar somente as cidades de Terenos e Campo Grande
+SELECT *
+FROM senso
+WHERE nome_mun IN ('Terenos', 'Campo Grande');
+
+-- 4. Selecionar somente as cidades com mais de 100 mil habitantes do estado de Mato Grosso do Sul
+SELECT *
+FROM senso
+WHERE cod_uf = '50' AND populacao > 100000;
+
+-- 5. Consulta apenas dos campos estado e nome_mun ordenando a coluna nome_mun
+SELECT estado, nome_mun
+FROM senso
+ORDER BY nome_mun;
+
+-- 6. Consulta da cidade com maior PIB
+SELECT nome_mun, pib
+FROM senso
+ORDER BY pib DESC
+LIMIT 1;
+
+-- 7. Consulta da cidade com maior PIB_PER_CAP
+SELECT nome_mun, pib_per_cap
+FROM senso
+ORDER BY pib_per_cap DESC
+LIMIT 1;
+
+-- 8. Consulta da cidade com maior População
+SELECT nome_mun, populacao
+FROM senso
+ORDER BY populacao DESC
+LIMIT 1;
+
+-- 9. Consulta da cidade com menor População
+SELECT nome_mun, populacao
+FROM senso
+ORDER BY populacao ASC
+LIMIT 1;
+
+-- 10. Consulta qualquer: Média do PIB e da população por estado
+SELECT estado, AVG(pib) AS media_pib, AVG(populacao) AS media_populacao
+FROM senso
+GROUP BY estado;
+
+-- 11. Contagem de todos os registros
+SELECT COUNT(*) AS total_registros
+FROM senso;
+
+-- 12. Média do PIB
+SELECT AVG(pib) AS media_pib
+FROM senso;
+
+-- 13. Cidades que começam com a letra 'C'
+SELECT *
+FROM senso
+WHERE nome_mun LIKE 'C%';
+
+-- 14. Consultas adicionais:
+
+-- a. Cidades com o PIB total por estado
+SELECT estado, SUM(pib) AS pib_total
+FROM senso
+GROUP BY estado;
+
+-- b. Estados com média do PIB per capita acima de 12.000
+SELECT estado, AVG(pib_per_cap) AS media_pib_per_cap
+FROM senso
+GROUP BY estado
+HAVING AVG(pib_per_cap) > 12000;
+
+-- c. Cidades com PIB entre 500.000 e 1.000.000
+SELECT nome_mun, pib
+FROM senso
+WHERE pib BETWEEN 500000 AND 1000000;
+
+-- d. População total do estado de São Paulo
+SELECT SUM(populacao) AS populacao_total
+FROM senso
+WHERE cod_uf = '35';  -- São Paulo é identificado pelo código '35'
+
+-- e. Cidades do estado do Amazonas ordenadas pelo PIB em ordem decrescente
+SELECT nome_mun, pib
+FROM senso
+WHERE cod_uf = '13'  -- Amazonas é identificado pelo código '13'
+ORDER BY pib DESC;
+
+
+CREATE DATABASE  IF NOT EXISTS `cadastros` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `cadastros`;
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: cadastros
+-- ------------------------------------------------------
+Triggers
+Before
+After 
+- Insert
+- Update
+- Delete
+- Load
+- Data
+- Replace
+
